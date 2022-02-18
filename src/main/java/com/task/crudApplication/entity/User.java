@@ -1,4 +1,4 @@
-package com.task1.task1.entity;
+package com.task.crudApplication.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -18,11 +20,14 @@ import javax.persistence.Table;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
+    @Size(min = 2, max = 10)
     private String firstName;
-    private String secondName;
+    @Size(min = 2, max = 10)
+    private String lastName;
+    @Positive
     private int age;
 }

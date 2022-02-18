@@ -1,4 +1,4 @@
-package com.task1.task1;
+package com.task.crudApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
