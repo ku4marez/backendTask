@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import static com.task.crudApplication.constant.Constants.maxSize;
+import static com.task.crudApplication.constant.Constants.minSize;
+
 
 @Entity
 @Table(schema = "users")
@@ -24,9 +27,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Size(min = 2, max = 10)
+    @Size(min = minSize, max = maxSize)
     private String firstName;
-    @Size(min = 2, max = 10)
+    @Size(min = minSize, max = maxSize)
     private String lastName;
     @Positive
     private int age;

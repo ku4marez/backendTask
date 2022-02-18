@@ -8,16 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import java.util.List;
+
+import static com.task.crudApplication.constant.Constants.digitsNumber;
+import static com.task.crudApplication.constant.Constants.fractionNumber;
 
 @RestController
 @CrossOrigin
@@ -29,28 +32,29 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<List<User>> getUsers() {
+    @GetMapping("/")
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable @Digits(integer = 4, fraction = 0) int id)
+    @DeleteMapping("/")
+    public ResponseEntity<String> deleteUser(@RequestParam @Digits(integer = digitsNumber,
+            fraction = fractionNumber) int id)
             throws UserNotFoundException {
         userService.deleteUser(id);
         return ResponseEntity.ok("User with the ID: " + id + " was deleted");
     }
 
-    @PutMapping("/put/{id}")
+    @PutMapping("/")
     public ResponseEntity<String> updateExistingUser(
-            @PathVariable @Digits(integer = 4, fraction = 0) int id,
+            @RequestParam @Digits(integer = digitsNumber, fraction = fractionNumber) int id,
             @RequestBody @Valid UserDto updatedUser) throws UserNotFoundException {
         userService.updateExistingUser(id, updatedUser);
         return ResponseEntity.ok("User with the ID: " + id + " was updated");
     }
 
-    @PostMapping("/post")
+    @PostMapping("/")
     public ResponseEntity<String> createNewUser(@RequestBody @Valid User newUser) {
         userService.saveNewUser(newUser);
         return ResponseEntity.ok("User was created");
